@@ -50,13 +50,13 @@ const run = async () => {
 
 
 
-        // to save a task on database
+        // to get data from client side and save a newTask on database(MondoDB)
 
-        // app.post('/newTask', async (req, res) => {
-        //     const data = req.body;
-        //     const result = await taskCollection.insertOne(data);
-        //     res.send(result);
-        // })
+        app.post('/todo', async (req, res) => {
+            const newTask = req.body;
+            const result = await taskCollection.insertOne(newTask);
+            res.send(result);
+        })
 
 
 
