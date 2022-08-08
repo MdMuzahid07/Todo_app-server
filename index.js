@@ -4,6 +4,7 @@ const app = express();
 const cors = require('cors');
 require("dotenv").config();
 const port = process.env.PORT || 5000;
+const ObjectId = require('mongodb').ObjectId;
 
 
 // middleware
@@ -21,10 +22,7 @@ const run = async () => {
 
         await client.connect();
 
-
         const taskCollection = client.db("allTasks").collection("Tasks")
-
-
 
 
         // to get all task data
@@ -32,11 +30,6 @@ const run = async () => {
             const result = await taskCollection.find({}).toArray();
             res.send(result)
         })
-
-
-
-
-
 
         // to update a task
 
@@ -46,43 +39,20 @@ const run = async () => {
 
 
 
-
-
-
-
         // to get data from client side and save a newTask on database(MondoDB)
-
         app.post('/todo', async (req, res) => {
             const newTask = req.body;
             const result = await taskCollection.insertOne(newTask);
             res.send(result);
         })
 
-
-
         // to delete a task from database
-
-
-
-        // app.delete('/tasks/:id', async (req, res) => {
-        //     const id = req.params.id;
-        //     const query = { _id: ObjectId(id) };
-        //     const result = await taskCollection.deleteOne(query);
-        //     res.send(result)
-        // })
-
-
-
-
-
-
-
-
-
-
-
-
-
+        app.delete('/todo/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await taskCollection.deleteOne(query);
+            res.send(result)
+        })
 
 
     }
