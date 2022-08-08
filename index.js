@@ -50,18 +50,13 @@ const run = async () => {
 
 
 
-
-
-
-
-
         // to save a task on database
 
-
-
-
-
-
+        // app.post('/newTask', async (req, res) => {
+        //     const data = req.body;
+        //     const result = await taskCollection.insertOne(data);
+        //     res.send(result);
+        // })
 
 
 
@@ -69,7 +64,12 @@ const run = async () => {
 
 
 
-
+        // app.delete('/tasks/:id', async (req, res) => {
+        //     const id = req.params.id;
+        //     const query = { _id: ObjectId(id) };
+        //     const result = await taskCollection.deleteOne(query);
+        //     res.send(result)
+        // })
 
 
 
