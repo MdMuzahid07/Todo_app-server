@@ -31,7 +31,7 @@ const run = async () => {
             res.send(result)
         })
 
-        // to get a particular todo task to update
+        // to get a particular todo task
 
         app.get("/todo/:id", async (req, res) => {
             const id = req.params.id;
@@ -43,6 +43,22 @@ const run = async () => {
 
 
         // to update a task
+        app.put('/todo/:id', async (req, res) => {
+            const id = req.params.id;
+            const data = req.body;
+            const filter = { _id: ObjectId(id) };
+            const options = { upsert: true };
+
+            const updatedDoc = {
+                title: data.title, todo: data.todo
+            }
+            const result = await taskCollection.updateOne(filter, updatedDoc, options);
+            res.send(result);
+        })
+
+
+
+
 
 
 
