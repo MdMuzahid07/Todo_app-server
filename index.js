@@ -31,6 +31,8 @@ const run = async () => {
             res.send(result)
         })
 
+
+
         // to get a particular todo task
 
         app.get("/todo/:id", async (req, res) => {
@@ -48,18 +50,14 @@ const run = async () => {
             const data = req.body;
             const filter = { _id: ObjectId(id) };
             const options = { upsert: true };
-
-            const updatedDoc = {
-                title: data.title, todo: data.todo
-            }
-            const result = await taskCollection.updateOne(filter, updatedDoc, options);
+            const updateDoc = {
+                $set: {
+                    title: data.title, todo: data.todo
+                },
+            };
+            const result = await taskCollection.updateOne(filter, updateDoc, options);
             res.send(result);
         })
-
-
-
-
-
 
 
 
@@ -69,6 +67,8 @@ const run = async () => {
             const result = await taskCollection.insertOne(newTask);
             res.send(result);
         })
+
+
 
         // to delete a task from database
         app.delete('/todo/:id', async (req, res) => {
