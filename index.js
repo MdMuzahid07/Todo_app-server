@@ -22,19 +22,27 @@ const run = async () => {
 
         await client.connect();
 
-        const taskCollection = client.db("allTasks").collection("Tasks")
+        const taskCollection = client.db("allTasks").collection("Todo")
 
 
         // to get all task data
-        app.get("/tasks", async (req, res) => {
+        app.get("/todo", async (req, res) => {
             const result = await taskCollection.find({}).toArray();
             res.send(result)
         })
 
+        // to get a particular todo task to update
+
+        app.get("/todo/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await taskCollection.findOne(query);
+            res.send(result);
+        })
+
+
+
         // to update a task
-
-
-
 
 
 
